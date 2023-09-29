@@ -1,2 +1,4 @@
 ﻿  Graph_project_self.cpp
+D:\projects\3D_Graph\Graph_project_self\Graph_project_self\Graph_project_self.cpp(20,16): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\projects\3D_Graph\Graph_project_self\Graph_project_self\Graph_project_self.cpp(55,10): warning C4101: cArray: неиспользованная локальная переменная
   Graph_project_self.vcxproj -> D:\projects\3D_Graph\Graph_project_self\x64\Debug\Graph_project_self.exe
