@@ -1,0 +1,1 @@
+Feel free to redact project and use it anyhow you want ;)
