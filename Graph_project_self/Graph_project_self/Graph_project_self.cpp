@@ -1,67 +1,73 @@
 ﻿#include <iostream>
+#include <functional>
+#include <numeric>
+#include <vector>
 #include <opencv2\highgui.hpp>
 #include <opencv2\imgproc.hpp>
 
 
+template<class T>
+struct IotaWrapper
+{
+    typedef T type;
+    typedef std::function<type(const type&)> IncrFunction;
+
+    type value;
+    IncrFunction incrFunction;
+
+    IotaWrapper() = delete;
+    IotaWrapper(const type& n, const IncrFunction& incrFunction) : value(n), incrFunction(incrFunction) {};
+
+    operator type() { return value; }
+    IotaWrapper& operator++() { value = incrFunction(value); return *this; }
+};
+
+cv::Mat img = cv::imread("D:/projects/3D_Graph/Graph_project_self/res/pics/3.jpg");
+cv::Mat img1 = cv::imread("D:/projects/3D_Graph/Graph_project_self/res/pics/3.jpg");
+//cv::Mat img_converted = img;
+int iHeight = img.size().height;
+int iWidth = img.size().width;
+
+
+int iFontSize = 12;
+int iCharStep = iFontSize * 2;
+const int l = 6;
+
+
+char cChars[l] = " .o@#";
+std::string sChars[] = { " ", ".", "@", "#" };
+int iCoeff = 255 / strlen(cChars) - 1;
+
+IotaWrapper<int> n(0, [](const int& n) { return n + iCharStep; });
 
 int main()
 {
-    cv::Mat img = cv::imread("D:/projects/3D_Graph/Graph_project_self/res/pics/1.jpg", cv::);
-    cv::Mat img1 = cv::imread("D:/projects/3D_Graph/Graph_project_self/res/pics/1.jpg");
-    int iHeight = img1.size().height;
-    int iWidth = img1.size().width;
-    
-    int iFontSize = 12;
-    const int l = 5;
 
-    char cChars[l] = ".o@#";
-    std::string sChars[] = { ".", "#"};
-    std::cout << sChars[0] << "\n";
-    int iCoeff = 255 / strlen(cChars) - 1;
-     
-    for (int i = 0; i < iHeight; i++) 
+    std::vector<int> vHeight(iHeight / iCharStep);
+    std::iota(vHeight.begin(), vHeight.end(), n);
+    std::vector<int> vWidth(iWidth / iCharStep);
+    std::iota(vWidth.begin(), vWidth.end(), n);
+
+    for (auto i : vHeight)
+        std::cout << i << ' ';
+
+
+    img1 = cv::Mat::zeros(iHeight, iWidth, CV_8UC3);
+    
+    for (auto i : vHeight)
     {
-        for (int j = 0; j < iWidth; j++)
+        for (int j : vWidth)
         {
-            if (i % 10 == 0 || j % 10 == 0)
-                cv::putText(img1, sChars[0],
-                    cv::Point(j, i),
-                    cv::FONT_HERSHEY_SIMPLEX,
-                    1.0,
-                    CV_RGB(160, 160, 160), false);
-            //else 
-            //    cv::putText(img1, sChars[1],
-              //  cv::Point(j, i),
-                //cv::FONT_HERSHEY_SIMPLEX,
-              //  0.01,
-//                CV_RGB(60, 60, 60), false);
+            cv::Vec3b pixel = img.at<cv::Vec3b>(i, j);
+
+            cv::putText(img1, sChars[2],
+                cv::Point(j, i),
+                cv::FONT_HERSHEY_SIMPLEX,
+                1.0,
+                CV_RGB(pixel[2], pixel[1], pixel[0], 1.0));
         }
     }
-
-    cv::imshow("window_second", img1);
-    
-    printf("%d\n", iHeight);
-    printf("%d\n", iWidth);
-    printf(cChars);
-    printf("%d\n", iCoeff);
+    cv::imshow("Image_self", img);
+    cv::imshow("Image_converted", img1);
     cv::waitKey(0);
-
-
-}
-
-int draw()
-{
-    
-    char cArray[1];
-    return 0;
-}
-
-int convert()
-{
-    return 0;
-}
-
-int draw_converted()
-{
-    return 0;
 }
