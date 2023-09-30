@@ -1,0 +1,4 @@
+﻿D:\visual_studio\2023\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: промежуточный каталог (x64\Debug\) содержит файлы, которые используются совместно с другим проектом (Graph_project_self.vcxproj).  Это может привести к ошибкам очистки и перестроения.
+  ascii_cpp_project_self.cpp
+D:\projects\ascii_cpp_project\ascii_cpp_project_self\Graph_project_self\ascii_cpp_project_self.cpp(67,17): warning C4002: слишком много аргументов для вызова макроса, подобного функции, "CV_RGB"
+  Graph_project_self.vcxproj -> D:\projects\ascii_cpp_project\ascii_cpp_project_self\x64\Debug\ascii_cpp_project_self.exe
