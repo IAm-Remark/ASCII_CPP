@@ -31,7 +31,7 @@ struct IotaWrapper
 
 //So all mine code starts here 
 std::string sFontPath = "res/font/Lack.otf";
-std::string sPath = "res/pics/1.jpg";
+std::string sPath = "res/pics/6.jpg";
 
 cv::Mat img_self = cv::imread(sPath);
 cv::Mat img_to_convert = cv::imread(sPath);
@@ -43,7 +43,7 @@ int iWidth = img_self.size().width;
 
 //Feel free to redact. Low font size increase detalisation of ascii
 int iFontSize = 12;
-int iCharStep = iFontSize * 0.8;
+int iCharStep = iFontSize * 2;
 
 //Before adding more chars to list be sure to redact the length
 const int length = 12;
@@ -108,9 +108,11 @@ int main()
     //cv::imshow("Image_gray", img_to_gray);
 
     oAsciiText << sAsciiText;
+
+
     cv::waitKey(0);
     
     oAsciiText.close();
-    //cv::imwrite("res/render/Converted.jpg", img_to_convert);
+    cv::imwrite("res/render/Converted.jpg", img_to_convert);
 
 }
